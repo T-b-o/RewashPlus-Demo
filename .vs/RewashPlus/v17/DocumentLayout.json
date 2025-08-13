@@ -3,12 +3,44 @@
   "WorkspaceRootPath": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\admin\\adminbookings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:admin\\adminbookings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\admin\\adminbookings.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:admin\\adminbookings.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\layout\\navmenu.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:layout\\navmenu.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\pages\\bookings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:pages\\bookings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\pages\\bookings.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:pages\\bookings.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\rewashplus.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:rewashplus.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\pages\\bookinghistory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:pages\\bookinghistory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -19,16 +51,8 @@
       "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\tailwind.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:tailwind.config.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\wwwroot\\manifest.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -51,10 +75,6 @@
       "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:services\\bookingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\pages\\bookinghistory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:pages\\bookinghistory.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|c:\\blacklink_smartmoney\\car wash pwa\\demo app\\rewashplus\\wwwroot\\offline-sync.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{2B60CB1C-13BD-02CD-9E17-731C7E26DB23}|RewashPlus.csproj|solutionrelative:wwwroot\\offline-sync.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
@@ -70,11 +90,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 17,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -83,12 +103,11 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-08T20:11:03.382Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "Booking.cs",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Models\\Booking.cs",
               "RelativeDocumentMoniker": "Models\\Booking.cs",
@@ -101,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "BookingService.cs",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Services\\BookingService.cs",
               "RelativeDocumentMoniker": "Services\\BookingService.cs",
@@ -114,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 18,
               "Title": "offline-sync.js",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\wwwroot\\offline-sync.js",
               "RelativeDocumentMoniker": "wwwroot\\offline-sync.js",
@@ -127,7 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 8,
               "Title": "BookingHistory.razor",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\BookingHistory.razor",
               "RelativeDocumentMoniker": "Pages\\BookingHistory.razor",
@@ -136,17 +155,18 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-10T18:15:50.328Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Home.razor",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\Home.razor",
               "RelativeDocumentMoniker": "Pages\\Home.razor",
               "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\Home.razor",
               "RelativeToolTip": "Pages\\Home.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-11T14:53:44.505Z",
               "IsPinned": true,
@@ -154,13 +174,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "NavMenu.razor.cs",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Layout\\NavMenu.razor.cs",
               "RelativeDocumentMoniker": "Layout\\NavMenu.razor.cs",
               "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Layout\\NavMenu.razor.cs",
               "RelativeToolTip": "Layout\\NavMenu.razor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwBUAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-11T21:35:55.603Z",
               "IsPinned": true,
@@ -168,13 +188,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "NavMenu.razor",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Layout\\NavMenu.razor",
               "RelativeDocumentMoniker": "Layout\\NavMenu.razor",
               "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Layout\\NavMenu.razor",
               "RelativeToolTip": "Layout\\NavMenu.razor",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAADUAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAABkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-11T15:19:20.432Z",
               "IsPinned": true,
@@ -182,7 +202,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "manifest.json",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\wwwroot\\manifest.json",
               "RelativeDocumentMoniker": "wwwroot\\manifest.json",
@@ -191,12 +211,11 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-08-10T18:17:38.876Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "tailwind.css",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\wwwroot\\css\\tailwind.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\tailwind.css",
@@ -205,12 +224,11 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-08-11T16:51:02.352Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "package.json",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\package.json",
               "RelativeDocumentMoniker": "package.json",
@@ -219,12 +237,11 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-08-11T16:44:46.924Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "tailwind.config.js",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\tailwind.config.js",
               "RelativeDocumentMoniker": "tailwind.config.js",
@@ -233,12 +250,11 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-08-11T16:55:33.602Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "index.html",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\wwwroot\\index.html",
               "RelativeDocumentMoniker": "wwwroot\\index.html",
@@ -247,12 +263,11 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-08-11T19:18:25.222Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "MainLayout.razor",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Layout\\MainLayout.razor",
               "RelativeDocumentMoniker": "Layout\\MainLayout.razor",
@@ -261,12 +276,80 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-11T21:35:21.196Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Bookings.razor.cs",
+              "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\Bookings.razor.cs",
+              "RelativeDocumentMoniker": "Pages\\Bookings.razor.cs",
+              "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\Bookings.razor.cs",
+              "RelativeToolTip": "Pages\\Bookings.razor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T19:00:49.997Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
+              "Title": "Bookings.razor",
+              "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\Bookings.razor",
+              "RelativeDocumentMoniker": "Pages\\Bookings.razor",
+              "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Pages\\Bookings.razor",
+              "RelativeToolTip": "Pages\\Bookings.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-13T18:59:02.386Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminBookings.razor.cs",
+              "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Admin\\AdminBookings.razor.cs",
+              "RelativeDocumentMoniker": "Admin\\AdminBookings.razor.cs",
+              "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Admin\\AdminBookings.razor.cs",
+              "RelativeToolTip": "Admin\\AdminBookings.razor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T20:03:29.033Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AdminBookings.razor",
+              "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Admin\\AdminBookings.razor",
+              "RelativeDocumentMoniker": "Admin\\AdminBookings.razor",
+              "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\Admin\\AdminBookings.razor",
+              "RelativeToolTip": "Admin\\AdminBookings.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-13T20:02:50.006Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RewashPlus",
+              "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\RewashPlus.csproj",
+              "RelativeDocumentMoniker": "RewashPlus.csproj",
+              "ToolTip": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\RewashPlus.csproj",
+              "RelativeToolTip": "RewashPlus.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-13T20:00:19.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "_Imports.razor",
               "DocumentMoniker": "C:\\BlackLink_SmartMoney\\Car Wash PWA\\Demo App\\RewashPlus\\_Imports.razor",
               "RelativeDocumentMoniker": "_Imports.razor",

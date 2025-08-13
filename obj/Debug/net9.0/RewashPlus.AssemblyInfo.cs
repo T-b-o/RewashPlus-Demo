@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RewashPlus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cab1b2e9013b220a0d7b70165d6b80d0bcf8756c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed5f4568a1c3a39017f2962a64ec3459fdc0ba6b")]
 [assembly: System.Reflection.AssemblyProductAttribute("RewashPlus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RewashPlus")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
