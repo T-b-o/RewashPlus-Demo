@@ -1,96 +1,211 @@
-﻿@page "/admin/adminbookings"
-@page "/admin/manage-bookings"
+﻿@page "/admin/manage-bookings"
 
-<div class="p-6 bg-gray-100 min-h-screen">
-    <h1 class="text-2xl font-bold mb-4">Bookings</h1>
+<!--
+  AdminBookings.razor
+  - Namespace: RewashPlus.Admin (see code-behind)
+  - Shows all bookings with admin features:
+    • Search (user, car, service, id)
+    • Status filter + date range
+    • Page size & paging
+    • Bulk select + bulk Approve/Cancel/Delete
+    • Modal view/edit
+-->
+
+<div class="p-6 bg-gray-900 min-h-screen text-white space-y-6">
+    <!-- Header + Bulk Actions -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <h1 class="text-2xl font-bold text-blue-400">Manage Bookings</h1>
+
+        <div class="flex flex-wrap gap-2">
+            <button class="px-3 py-2 rounded bg-green-600 disabled:opacity-50" disabled="@(SelectedCount == 0)"
+                    @onclick="ApproveSelected">
+                <i class="fas fa-check mr-2"></i>Approve Selected (@SelectedCount)
+            </button>
+            <button class="px-3 py-2 rounded bg-yellow-500 text-black disabled:opacity-50" disabled="@(SelectedCount == 0)"
+                    @onclick="CancelSelected">
+                <i class="fas fa-ban mr-2"></i>Cancel Selected
+            </button>
+            <button class="px-3 py-2 rounded bg-red-600 disabled:opacity-50" disabled="@(SelectedCount == 0)"
+                    @onclick="DeleteSelected">
+                <i class="fas fa-trash mr-2"></i>Delete Selected
+            </button>
+        </div>
+    </div>
 
     <!-- Filters -->
-    <div class="flex gap-4 mb-4">
-        <!-- Status Filter -->
-        <select @onchange="OnStatusChanged" class="border rounded p-2">
-            <option>All</option>
-            <option>Pending</option>
-            <option>Confirmed</option>
-            <option>Cancelled</option>
-        </select>
+    <div class="bg-gray-800 rounded-lg p-4 grid grid-cols-1 md:grid-cols-6 gap-3">
+        <div class="md:col-span-2">
+            <label class="block text-xs text-gray-400 mb-1">Search</label>
+            <input class="w-full bg-gray-700 rounded px-3 py-2"
+                   placeholder="User, car, service, or ID..."
+                   @bind="SearchTerm" @bind:event="oninput" />
+        </div>
 
-        <!-- Page Size Selector -->
-        <select @onchange="OnPageSizeChanged" class="border rounded p-2">
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
-            <option value="20">20</option>
-        </select>
+        <div>
+            <label class="block text-xs text-gray-400 mb-1">Status</label>
+            <select class="w-full bg-gray-700 rounded px-3 py-2" @onchange="OnStatusChanged">
+                @foreach (var s in StatusOptions)
+                {
+                    <option value="@s" selected="@(s == SelectedStatus)">@s</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-xs text-gray-400 mb-1">From</label>
+            <input type="date" class="w-full bg-gray-700 rounded px-3 py-2"
+                   @bind="DateFrom" />
+        </div>
+
+        <div>
+            <label class="block text-xs text-gray-400 mb-1">To</label>
+            <input type="date" class="w-full bg-gray-700 rounded px-3 py-2"
+                   @bind="DateTo" />
+        </div>
+
+        <div>
+            <label class="block text-xs text-gray-400 mb-1">Page Size</label>
+            <select class="w-full bg-gray-700 rounded px-3 py-2" @onchange="OnPageSizeChanged">
+                @foreach (var size in PageSizeOptions)
+                {
+                    <option value="@size" selected="@(size == PageSize)">@size / page</option>
+                }
+            </select>
+        </div>
     </div>
 
     <!-- Table -->
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
-        <table class="w-full table-auto">
-            <thead class="bg-gray-200">
+    <div class="overflow-x-auto bg-gray-800 rounded-lg shadow">
+        <table class="min-w-full text-left">
+            <thead class="bg-gray-700 text-gray-200">
                 <tr>
-                    <th class="px-4 py-2 text-left">Customer</th>
-                    <th class="px-4 py-2 text-left">Service</th>
-                    <th class="px-4 py-2 text-left">Date</th>
-                    <th class="px-4 py-2 text-left">Status</th>
-                    <th class="px-4 py-2">Actions</th>
+                    <th class="px-4 py-3">
+                        <input type="checkbox" class="h-4 w-4" @onchange="ToggleSelectAll" checked="@AllOnPageSelected" />
+                    </th>
+                    <th class="px-4 py-3">ID</th>
+                    <th class="px-4 py-3">User</th>
+                    <th class="px-4 py-3">Car</th>
+                    <th class="px-4 py-3">Service</th>
+                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Amount</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var booking in GetCurrentPageData())
+            <tbody class="divide-y divide-gray-700">
+                @if (!PagedBookings.Any())
                 {
-                    <tr class="border-t hover:bg-gray-50">
-                        <td class="px-4 py-2">@booking.CustomerName</td>
-                        <td class="px-4 py-2">@booking.Service</td>
-                        <td class="px-4 py-2">@booking.Date.ToShortDateString()</td>
-                        <td class="px-4 py-2">@booking.Status</td>
-                        <td class="px-4 py-2 text-center">
-                            <button class="text-blue-500 hover:underline"
-                                    @onclick="() => OpenModal(booking)">
-                                View/Edit
-                            </button>
-                        </td>
+                    <tr>
+                        <td colspan="9" class="px-4 py-6 text-center text-gray-400">No bookings match your filters.</td>
                     </tr>
+                }
+                else
+                {
+                    @foreach (var b in PagedBookings)
+                    {
+                        <tr class="hover:bg-gray-700 transition-colors">
+                            <td class="px-4 py-3">
+                                <input type="checkbox" class="h-4 w-4" @bind="b.Selected" />
+                            </td>
+                            <td class="px-4 py-3">@b.Id</td>
+                            <td class="px-4 py-3">@b.UserName</td>
+                            <td class="px-4 py-3">@b.CarModel</td>
+                            <td class="px-4 py-3">@b.ServiceName</td>
+                            <td class="px-4 py-3">@b.Date.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td class="px-4 py-3">R @b.Amount.ToString("N2")</td>
+                            <td class="px-4 py-3">
+                                <span class="px-2 py-1 rounded-full text-xs font-semibold
+                          @(b.Status == "Confirmed" ? "bg-green-600" :
+                                                          b.Status == "Pending" ? "bg-yellow-500 text-black" : "bg-red-600")">
+                            @b.Status
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                        <button class="px-3 py-1 rounded bg-blue-500 hover:bg-blue-600"
+                                @onclick="() => OpenModal(b)">
+                            View / Edit
+                        </button>
+                    </td>
+                </tr>
+                                }
                 }
             </tbody>
         </table>
     </div>
 
     <!-- Pagination -->
-    <div class="flex justify-center gap-2 mt-4">
-        <button class="px-3 py-1 border rounded" @onclick="() => GoToPage(CurrentPage - 1)" disabled="@(
-                                                                                            CurrentPage == 1)">
-            Prev
+    <div class="flex justify-between items-center">
+        <button class="px-3 py-2 rounded bg-gray-800 disabled:opacity-50"
+                disabled="@(!CanPrev)" @onclick="PrevPage">
+            Previous
         </button>
-
-        @for (int i = 1; i <= TotalPages; i++)
-        {
-            <button class="@($"px-3 py-1 border rounded {(i == CurrentPage ? "bg-blue-500 text-white" : "")}")"
-                    @onclick="() => GoToPage(i)">
-                @i
-            </button>
-        }
-
-        <button class="px-3 py-1 border rounded" @onclick="() => GoToPage(CurrentPage + 1)" disabled="@(
-                                                                                            CurrentPage == TotalPages)">
+        <span class="text-sm text-gray-300">Page @CurrentPage of @TotalPages</span>
+        <button class="px-3 py-2 rounded bg-gray-800 disabled:opacity-50"
+                disabled="@(!CanNext)" @onclick="NextPage">
             Next
         </button>
     </div>
+</div>
 
-    <!-- Modal -->
-    @if (IsModalOpen && SelectedBooking != null)
-    {
-        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-                <h2 class="text-xl font-semibold mb-4">Booking Details</h2>
-                <p><strong>Customer:</strong> @SelectedBooking.CustomerName</p>
-                <p><strong>Service:</strong> @SelectedBooking.Service</p>
-                <p><strong>Date:</strong> @SelectedBooking.Date.ToShortDateString()</p>
-                <p><strong>Status:</strong> @SelectedBooking.Status</p>
+<!-- Modal (with subtle fade/scale transitions using Tailwind utilities) -->
+@if (IsModalOpen && Editing != null)
+{
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity"></div>
 
-                <div class="mt-6 flex justify-end gap-2">
-                    <button class="px-4 py-2 bg-gray-300 rounded" @onclick="CloseModal">Close</button>
-                    <button class="px-4 py-2 bg-blue-500 text-white rounded">Save Changes</button>
+        <div class="relative bg-gray-800 w-full max-w-xl mx-4 rounded-2xl shadow-xl
+                    transform transition ease-out duration-200 scale-100 opacity-100">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-blue-400">Edit Booking #@Editing.Id</h2>
+                    <button class="text-gray-300 hover:text-white" @onclick="CloseModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">User</label>
+                        <input class="w-full bg-gray-700 rounded px-3 py-2" @bind="Editing.UserName" />
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Car</label>
+                        <input class="w-full bg-gray-700 rounded px-3 py-2" @bind="Editing.CarModel" />
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Service</label>
+                        <input class="w-full bg-gray-700 rounded px-3 py-2" @bind="Editing.ServiceName" />
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Amount</label>
+                        <input type="number" step="0.01" class="w-full bg-gray-700 rounded px-3 py-2"
+                               @bind="Editing.Amount" />
+                    </div>
+
+@* 
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Date</label>
+                        <input type="datetime-local" class="w-full bg-gray-700 rounded px-3 py-2"
+                               @bind="EditingDateLocal" />
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Status</label>
+                        <select class="w-full bg-gray-700 rounded px-3 py-2" @bind="Editing.Status">
+                            @foreach (var s in StatusOptions.Where(s => s != "All"))
+                            {
+                                <option value="@s">@s</option>
+                            }
+                        </select>
+                    </div>
+                *@
+                
+                </div>
+
+                <div class="flex justify-end gap-2 mt-6">
+                    <button class="px-4 py-2 rounded bg-gray-700 hover:bg-gray-600" @onclick="CloseModal">Cancel</button>
+                    <button class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700" @onclick="SaveEditing">Save</button>
                 </div>
             </div>
         </div>
-    }
-</div>
+    </div>
+}

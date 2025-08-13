@@ -1,154 +1,209 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace RewashPlus.Admin
 {
     /// <summary>
-    /// Code-behind for the Bookings page.
-    /// Handles data fetching, filtering, pagination, and modal state.
+    /// Code-behind for AdminBookings. Handles data, filters, paging, bulk actions, and modal state.
     /// </summary>
-    public partial class AdminBookings
+    public partial class AdminBookings : ComponentBase
     {
-        // ================
-        // Private Fields
-        // ================
+        // -------- Data model --------
+        public class Booking
+        {
+            public int Id { get; set; }
+            public string UserName { get; set; } = string.Empty;
+            public string CarModel { get; set; } = string.Empty;
+            public string ServiceName { get; set; } = string.Empty;
+            public DateTime Date { get; set; }
+            public decimal Amount { get; set; }
+            public string Status { get; set; } = "Pending";
+            public bool Selected { get; set; }   // for bulk actions
+        }
 
-        /// <summary>All bookings loaded into memory (mock/demo data for now).</summary>
-        private List<BookingModel> AllBookings = new();
+        // -------- State: data & filters --------
+        private List<Booking> _all = new();
+        protected string SearchTerm { get; set; } = string.Empty;
+        protected string SelectedStatus { get; set; } = "All";
+        protected DateTime? DateFrom { get; set; }
+        protected DateTime? DateTo { get; set; }
 
-        /// <summary>Filtered bookings based on status filter.</summary>
-        private List<BookingModel> FilteredBookings = new();
+        protected List<string> StatusOptions { get; } = new() { "All", "Pending", "Confirmed", "Cancelled" };
 
-        /// <summary>The selected status for filtering.</summary>
-        private string SelectedStatus = "All";
+        // -------- Paging --------
+        protected int CurrentPage { get; set; } = 1;
+        protected int PageSize { get; set; } = 10;
+        protected List<int> PageSizeOptions { get; } = new() { 5, 10, 20, 50 };
 
-        /// <summary>The number of rows to show per page.</summary>
-        private int PageSize = 10;
+        // Computed collections
+        protected IEnumerable<Booking> Filtered => ApplyFilters(_all);
+        protected IEnumerable<Booking> PagedBookings => Filtered
+            .Skip((CurrentPage - 1) * PageSize)
+            .Take(PageSize);
 
-        /// <summary>The current page number.</summary>
-        private int CurrentPage = 1;
+        protected int TotalPages => Math.Max(1, (int)Math.Ceiling(Filtered.Count() / (double)PageSize));
+        protected bool CanPrev => CurrentPage > 1;
+        protected bool CanNext => CurrentPage < TotalPages;
 
-        /// <summary>The booking currently being viewed/edited in the modal.</summary>
-        private BookingModel? SelectedBooking;
+        // Bulk selection helpers
+        protected int SelectedCount => _all.Count(b => b.Selected);
+        protected bool AllOnPageSelected => PagedBookings.All(b => b.Selected) && PagedBookings.Any();
 
-        /// <summary>Flag to show or hide the modal.</summary>
-        private bool IsModalOpen = false;
+        // -------- Modal --------
+        protected bool IsModalOpen { get; set; }
+        protected Booking? Editing { get; set; }
 
-        /// <summary>Total number of pages based on filtered results.</summary>
-        private int TotalPages => (int)Math.Ceiling((double)FilteredBookings.Count / PageSize);
+        /// <summary>
+        /// Helper for binding DateTime to datetime-local input (which expects local, no TZ).
+        /// </summary>
+        protected string EditingDateLocal
+        {
+            get => Editing is null ? "" : Editing.Date.ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+            set
+            {
+                if (Editing is null) return;
+                if (DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dt))
+                {
+                    Editing.Date = dt;
+                }
+            }
+        }
 
-        // ================
-        // Lifecycle
-        // ================
-
+        // -------- Lifecycle --------
         protected override void OnInitialized()
         {
-            // Generate mock bookings for demo purposes
-            AllBookings = Enumerable.Range(1, 50).Select(i => new BookingModel
+            // Seed demo data. Replace with your API/db call.
+            var rnd = new Random(7);
+            _all = Enumerable.Range(1001, 87).Select(i => new Booking
             {
                 Id = i,
-                CustomerName = $"Customer {i}",
-                Service = i % 2 == 0 ? "Exterior Wash" : "Full Wash",
-                Date = DateTime.Now.AddDays(i),
-                Status = i % 3 == 0 ? "Pending" : (i % 3 == 1 ? "Confirmed" : "Cancelled")
+                UserName = $"user{i % 12 + 1}@rewash.plus",
+                CarModel = i % 2 == 0 ? "VW Polo" : "Toyota Corolla",
+                ServiceName = (i % 3) switch { 0 => "Express Wash", 1 => "Full Wash", _ => "Premium Detail" },
+                Date = DateTime.Today.AddDays(-(i % 15)).AddHours(i % 9 * 1.5),
+                Amount = 120 + (i % 7) * 35,
+                Status = (i % 3) switch { 0 => "Pending", 1 => "Confirmed", _ => "Cancelled" }
             }).ToList();
-
-            ApplyFilters();
         }
 
-        // ================
-        // Event Handlers
-        // ================
-
-        /// <summary>
-        /// Handles the change of the status dropdown.
-        /// </summary>
-        private void OnStatusChanged(ChangeEventArgs e)
+        // -------- Filters & paging handlers --------
+        protected void OnStatusChanged(ChangeEventArgs e)
         {
             SelectedStatus = e.Value?.ToString() ?? "All";
-            ApplyFilters();
-        }
-
-        /// <summary>
-        /// Handles change in page size dropdown.
-        /// </summary>
-        private void OnPageSizeChanged(ChangeEventArgs e)
-        {
-            if (int.TryParse(e.Value?.ToString(), out var size))
-                PageSize = size;
-
             CurrentPage = 1;
         }
 
-        /// <summary>
-        /// Opens the modal for a specific booking.
-        /// </summary>
-        private void OpenModal(BookingModel booking)
+        protected void OnPageSizeChanged(ChangeEventArgs e)
         {
-            SelectedBooking = booking;
+            if (int.TryParse(e.Value?.ToString(), out var size) && size > 0)
+            {
+                PageSize = size;
+                CurrentPage = 1;
+            }
+        }
+
+        protected void PrevPage() { if (CanPrev) CurrentPage--; }
+        protected void NextPage() { if (CanNext) CurrentPage++; }
+
+        // -------- Selection & bulk actions --------
+        protected void ToggleSelectAll(ChangeEventArgs _)
+        {
+            var selectAll = !AllOnPageSelected;
+            foreach (var b in PagedBookings) b.Selected = selectAll;
+        }
+
+        protected void ApproveSelected()
+        {
+            foreach (var b in _all.Where(b => b.Selected)) b.Status = "Confirmed";
+            ClearSelectionOnInvisibleRows();
+        }
+
+        protected void CancelSelected()
+        {
+            foreach (var b in _all.Where(b => b.Selected)) b.Status = "Cancelled";
+            ClearSelectionOnInvisibleRows();
+        }
+
+        protected void DeleteSelected()
+        {
+            _all.RemoveAll(b => b.Selected);
+            // reset page if we fell off the end
+            if (CurrentPage > TotalPages) CurrentPage = TotalPages;
+        }
+
+        private void ClearSelectionOnInvisibleRows()
+        {
+            // optional: clear selection after action
+            foreach (var b in _all) b.Selected = false;
+        }
+
+        // -------- Modal --------
+        protected void OpenModal(Booking b)
+        {
+            // clone to avoid editing the live row until Save
+            Editing = new Booking
+            {
+                Id = b.Id,
+                UserName = b.UserName,
+                CarModel = b.CarModel,
+                ServiceName = b.ServiceName,
+                Date = b.Date,
+                Amount = b.Amount,
+                Status = b.Status
+            };
             IsModalOpen = true;
         }
 
-        /// <summary>
-        /// Closes the modal dialog.
-        /// </summary>
-        private void CloseModal()
+        protected void CloseModal()
         {
             IsModalOpen = false;
-            SelectedBooking = null;
+            Editing = null;
         }
 
-        /// <summary>
-        /// Navigates to a specific page.
-        /// </summary>
-        private void GoToPage(int page)
+        protected void SaveEditing()
         {
-            if (page >= 1 && page <= TotalPages)
-                CurrentPage = page;
+            if (Editing is null) return;
+            var existing = _all.FirstOrDefault(x => x.Id == Editing.Id);
+            if (existing != null)
+            {
+                existing.UserName = Editing.UserName;
+                existing.CarModel = Editing.CarModel;
+                existing.ServiceName = Editing.ServiceName;
+                existing.Date = Editing.Date;
+                existing.Amount = Editing.Amount;
+                existing.Status = Editing.Status;
+            }
+            CloseModal();
         }
 
-        // ================
-        // Helper Methods
-        // ================
-
-        /// <summary>
-        /// Applies the currently selected status filter.
-        /// </summary>
-        private void ApplyFilters()
+        // -------- Filter logic --------
+        private IEnumerable<Booking> ApplyFilters(IEnumerable<Booking> source)
         {
-            FilteredBookings = SelectedStatus == "All"
-                ? AllBookings
-                : AllBookings.Where(b => b.Status == SelectedStatus).ToList();
+            var q = source;
 
-            CurrentPage = 1;
-        }
+            if (!string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                var term = SearchTerm.Trim();
+                q = q.Where(b =>
+                      b.Id.ToString().Contains(term, StringComparison.OrdinalIgnoreCase)
+                   || b.UserName.Contains(term, StringComparison.OrdinalIgnoreCase)
+                   || b.CarModel.Contains(term, StringComparison.OrdinalIgnoreCase)
+                   || b.ServiceName.Contains(term, StringComparison.OrdinalIgnoreCase));
+            }
 
-        /// <summary>
-        /// Gets the subset of bookings for the current page.
-        /// </summary>
-        private IEnumerable<BookingModel> GetCurrentPageData()
-        {
-            return FilteredBookings
-                .Skip((CurrentPage - 1) * PageSize)
-                .Take(PageSize);
-        }
+            if (SelectedStatus != "All")
+                q = q.Where(b => b.Status == SelectedStatus);
 
-        // ================
-        // Data Model
-        // ================
+            if (DateFrom.HasValue)
+                q = q.Where(b => b.Date.Date >= DateFrom.Value.Date);
 
-        /// <summary>
-        /// Represents a booking record.
-        /// </summary>
-        public class BookingModel
-        {
-            public int Id { get; set; }
-            public string CustomerName { get; set; } = string.Empty;
-            public string Service { get; set; } = string.Empty;
-            public DateTime Date { get; set; }
-            public string Status { get; set; } = string.Empty;
+            if (DateTo.HasValue)
+                q = q.Where(b => b.Date.Date <= DateTo.Value.Date);
+
+            return q.OrderByDescending(b => b.Date);
         }
     }
 }
