@@ -1,0 +1,63 @@
+﻿@inherits LayoutComponentBase
+
+<!-- Sidebar -->
+<div class="bg-gray-900 text-white flex flex-col transition-all duration-300 ease-in-out"
+     style="@($"width: {(isCollapsed ? "4rem" : "16rem")}")">
+
+    <!-- Logo / Collapse Button -->
+    <div class="flex items-center justify-between px-4 py-5 border-b border-gray-700">
+        <span class="text-2xl font-extrabold text-blue-400 tracking-wide transition-opacity duration-300"
+              style="@($"opacity: {(isCollapsed ? "0" : "1")}")">
+            Rewash+
+        </span>
+        <button class="lg:hidden" @onclick="ToggleMobileMenu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="flex-1 overflow-auto mt-6">
+        <ul class="px-2 space-y-1">
+            <li class="text-gray-400 uppercase tracking-wide text-xs mb-3 transition-opacity duration-300"
+                style="@($"opacity: {(isCollapsed ? "0" : "1")}")">
+                User
+            </li>
+
+            @* User Links *@
+            @foreach (var link in UserLinks)
+            {
+                <NavLink href="@link.Href" class="flex items-center px-3 py-2 rounded-md hover:bg-gray-800" Match="@link.Match">
+                    <i class="@link.Icon mr-3 w-5 text-blue-400"></i>
+                    <span class="whitespace-nowrap transition-all duration-300"
+                          style="@($"opacity: {(isCollapsed ? "0" : "1")}; width: {(isCollapsed ? "0px" : "auto")}")">
+                        @link.Label
+                    </span>
+                </NavLink>
+            }
+
+            <li class="mt-8 text-gray-400 uppercase tracking-wide text-xs mb-3 transition-opacity duration-300"
+                style="@($"opacity: {(isCollapsed ? "0" : "1")}")">
+                Admin
+            </li>
+
+            @* Admin Links *@
+            @foreach (var link in AdminLinks)
+            {
+                <NavLink href="@link.Href" class="flex items-center px-3 py-2 rounded-md hover:bg-gray-800">
+                    <i class="@link.Icon mr-3 w-5 text-blue-400"></i>
+                    <span class="whitespace-nowrap transition-all duration-300"
+                          style="@($"opacity: {(isCollapsed ? "0" : "1")}; width: {(isCollapsed ? "0px" : "auto")}")">
+                        @link.Label
+                    </span>
+                </NavLink>
+            }
+        </ul>
+    </div>
+
+
+    <!-- Collapse Toggle  -->
+    <button @onclick="ToggleCollapse"
+            class="p-3 border-t border-gray-700 hover:bg-gray-800 transition-colors duration-200">
+        <i class="fas @(isCollapsed ? "fa-chevron-right" : "fa-chevron-left")"></i>
+    </button>
+</div>

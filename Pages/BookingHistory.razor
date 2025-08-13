@@ -1,0 +1,52 @@
+﻿@page "/history"
+@inject RewashPlus.Services.BookingService BookingService
+
+<h3>Booking History</h3>
+
+<button @onclick="Refresh">Refresh</button>
+
+<h4>Pending (unsynced)</h4>
+@if (pending?.Any() ?? false)
+{
+    <ul>
+        @foreach (var b in pending)
+        {
+            <li>@b.CustomerName — @b.ServiceType — @b.AppointmentAt.ToLocalTime()</li>
+        }
+    </ul>
+}
+else
+{
+    <p>None</p>
+}
+
+<h4>Synced</h4>
+@if (synced?.Any() ?? false)
+{
+    <ul>
+        @foreach (var b in synced)
+        {
+            <li>@b.CustomerName — @b.ServiceType — @b.AppointmentAt.ToLocalTime()</li>
+        }
+    </ul>
+}
+else
+{
+    <p>None</p>
+}
+
+@code {
+    private List<RewashPlus.Models.Booking>? pending;
+    private List<RewashPlus.Models.Booking>? synced;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Refresh();
+    }
+
+    private async Task Refresh()
+    {
+        pending = await BookingService.GetPendingBookingsAsync();
+        synced = await BookingService.GetSyncedBookingsAsync();
+    }
+}

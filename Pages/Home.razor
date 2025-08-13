@@ -1,0 +1,97 @@
+﻿@page "/"
+@using RewashPlus.Models
+@inject RewashPlus.Services.BookingService BookingService
+@inject IJSRuntime JS
+
+<h3>Book a Wash — Rewash+</h3>
+
+<div class="status">
+    <p>Network: <strong>@(isOnline ? "Online" : "Offline")</strong></p>
+</div>
+
+<EditForm Model="bookingModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Full name</label>
+        <InputText @bind-Value="bookingModel.CustomerName" />
+    </div>
+
+    <div>
+        <label>Phone</label>
+        <InputText @bind-Value="bookingModel.PhoneNumber" />
+    </div>
+
+    <div>
+        <label>Email</label>
+        <InputText @bind-Value="bookingModel.Email" />
+    </div>
+
+    <div>
+        <label>Service</label>
+        <InputSelect @bind-Value="bookingModel.ServiceType">
+            <option value="Wash">Wash</option>
+            <option value="Interior">Interior</option>
+            <option value="Full Valet">Full Valet</option>
+        </InputSelect>
+    </div>
+
+    <div>
+        <label>Appointment</label>
+        <InputDate @bind-Value="bookingModel.AppointmentAt" />
+    </div>
+
+    <button type="submit">Save booking</button>
+</EditForm>
+
+@if (message != null)
+{
+    <div class="message">@message</div>
+}
+
+@code {
+    private Booking bookingModel = new Booking { AppointmentAt = DateTime.Today.AddDays(1) };
+    private bool isOnline = false;
+    private string? message;
+    private DotNetObjectReference<Home>? objRef;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isOnline = await JS.InvokeAsync<bool>("navigator.onLine");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            objRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("rewashOffline.initialize", objRef);
+        }
+    }
+
+    public async Task HandleValidSubmit()
+    {
+        await BookingService.SaveBookingAsync(bookingModel);
+        message = "Booking saved locally. It will sync when you're online.";
+        bookingModel = new Booking { AppointmentAt = DateTime.Today.AddDays(1) }; // reset form
+        StateHasChanged();
+    }
+
+    [JSInvokable("TriggerSync")]
+    public async Task TriggerSync()
+    {
+        // called from JS when the browser goes online
+        isOnline = true;
+        message = "Network restored — syncing pending bookings...";
+        StateHasChanged();
+        await BookingService.SyncPendingAsync();
+        message = "Sync complete (if any pending bookings).";
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        objRef?.Dispose();
+    }
+}
