@@ -6,149 +6,125 @@ using System.Linq;
 namespace RewashPlus.Pages
 {
     /// <summary>
-    /// Code-behind for the Bookings page.
-    /// Handles data fetching, filtering, pagination, and modal state.
+    /// Code-behind for Bookings.razor. Keeps UI markup clean and testable.
     /// </summary>
-    public partial class Bookings
+    public partial class Bookings : ComponentBase
     {
-        // ================
-        // Private Fields
-        // ================
+        #region State
 
-        /// <summary>All bookings loaded into memory (mock/demo data for now).</summary>
-        private List<BookingModel> AllBookings = new();
+        /// <summary>
+        /// Search filter text (customer name or booking ID).
+        /// </summary>
+        protected string SearchTerm { get; set; } = string.Empty;
 
-        /// <summary>Filtered bookings based on status filter.</summary>
-        private List<BookingModel> FilteredBookings = new();
+        /// <summary>
+        /// Backing store for all bookings. In production, load from API.
+        /// </summary>
+        private List<Booking> _allBookings = new();
 
-        /// <summary>The selected status for filtering.</summary>
-        private string SelectedStatus = "All";
+        /// <summary>
+        /// Computed, filtered list based on <see cref="SearchTerm"/>.
+        /// </summary>
+        protected IEnumerable<Booking> FilteredBookings =>
+            string.IsNullOrWhiteSpace(SearchTerm)
+                ? _allBookings
+                : _allBookings.Where(b =>
+                       (!string.IsNullOrEmpty(b.CustomerName) &&
+                        b.CustomerName.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                       || b.Id.ToString().Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
 
-        /// <summary>The number of rows to show per page.</summary>
-        private int PageSize = 10;
+        #endregion
 
-        /// <summary>The current page number.</summary>
-        private int CurrentPage = 1;
+        #region Services
 
-        /// <summary>The booking currently being viewed/edited in the modal.</summary>
-        private BookingModel? SelectedBooking;
+        [Inject] protected NavigationManager Nav { get; set; } = default!;
 
-        /// <summary>Flag to show or hide the modal.</summary>
-        private bool IsModalOpen = false;
+        #endregion
 
-        /// <summary>Total number of pages based on filtered results.</summary>
-        private int TotalPages => (int)Math.Ceiling((double)FilteredBookings.Count / PageSize);
+        #region Lifecycle
 
-        // ================
-        // Lifecycle
-        // ================
-
+        /// <summary>
+        /// Initialize with sample data. Replace with API call in production.
+        /// </summary>
         protected override void OnInitialized()
         {
-            // Generate mock bookings for demo purposes
-            AllBookings = Enumerable.Range(1, 50).Select(i => new BookingModel
+            _allBookings = new List<Booking>
             {
-                Id = i,
-                CustomerName = $"Customer {i}",
-                Service = i % 2 == 0 ? "Exterior Wash" : "Full Wash",
-                Date = DateTime.Now.AddDays(i),
-                Status = i % 3 == 0 ? "Pending" : (i % 3 == 1 ? "Confirmed" : "Cancelled")
-            }).ToList();
-
-            ApplyFilters();
+                new Booking { Id = 1001, CustomerName = "John Doe",    Date = DateTime.Today,     Time = "10:00 AM", Status = BookingStatus.Confirmed },
+                new Booking { Id = 1002, CustomerName = "John Doe",  Date = DateTime.Today,     Time = "11:30 AM", Status = BookingStatus.Pending   },
+                new Booking { Id = 1003, CustomerName = "John Doe",Date = DateTime.Today.AddDays(1), Time = "01:00 PM", Status = BookingStatus.Cancelled }
+            };
         }
 
-        // ================
-        // Event Handlers
-        // ================
+        #endregion
+
+        #region UI Helpers
 
         /// <summary>
-        /// Handles the change of the status dropdown.
+        /// Tailwind badge classes based on booking status.
         /// </summary>
-        private void OnStatusChanged(ChangeEventArgs e)
+        protected string GetStatusBadgeClass(BookingStatus status) =>
+            status switch
+            {
+                BookingStatus.Confirmed => "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800",
+                BookingStatus.Pending => "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800",
+                BookingStatus.Cancelled => "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800",
+                _ => "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800"
+            };
+
+        #endregion
+
+        #region Actions
+
+        protected void ViewBooking(int id)
         {
-            SelectedStatus = e.Value?.ToString() ?? "All";
-            ApplyFilters();
+            // Navigate to a details page when you create it, e.g. /bookings/{id}
+            // For now, just navigate to a placeholder
+            Nav.NavigateTo($"/bookings/{id}", forceLoad: false);
         }
 
-        /// <summary>
-        /// Handles change in page size dropdown.
-        /// </summary>
-        private void OnPageSizeChanged(ChangeEventArgs e)
+        protected void EditBooking(int id)
         {
-            if (int.TryParse(e.Value?.ToString(), out var size))
-                PageSize = size;
-
-            CurrentPage = 1;
+            // Navigate to edit page when available
+            Nav.NavigateTo($"/bookings/{id}/edit", forceLoad: false);
         }
 
-        /// <summary>
-        /// Opens the modal for a specific booking.
-        /// </summary>
-        private void OpenModal(BookingModel booking)
+        protected void CancelBooking(int id)
         {
-            SelectedBooking = booking;
-            IsModalOpen = true;
+            var booking = _allBookings.FirstOrDefault(b => b.Id == id);
+            if (booking is null) return;
+
+            booking.Status = BookingStatus.Cancelled;
+            StateHasChanged();
         }
 
+        #endregion
+
+        #region Model
+
         /// <summary>
-        /// Closes the modal dialog.
+        /// Booking status enumeration for type-safety.
         /// </summary>
-        private void CloseModal()
+        public enum BookingStatus
         {
-            IsModalOpen = false;
-            SelectedBooking = null;
+            Unknown = 0,
+            Pending = 1,
+            Confirmed = 2,
+            Cancelled = 3
         }
 
         /// <summary>
-        /// Navigates to a specific page.
+        /// A single booking entry.
         /// </summary>
-        private void GoToPage(int page)
-        {
-            if (page >= 1 && page <= TotalPages)
-                CurrentPage = page;
-        }
-
-        // ================
-        // Helper Methods
-        // ================
-
-        /// <summary>
-        /// Applies the currently selected status filter.
-        /// </summary>
-        private void ApplyFilters()
-        {
-            FilteredBookings = SelectedStatus == "All"
-                ? AllBookings
-                : AllBookings.Where(b => b.Status == SelectedStatus).ToList();
-
-            CurrentPage = 1;
-        }
-
-        /// <summary>
-        /// Gets the subset of bookings for the current page.
-        /// </summary>
-        private IEnumerable<BookingModel> GetCurrentPageData()
-        {
-            return FilteredBookings
-                .Skip((CurrentPage - 1) * PageSize)
-                .Take(PageSize);
-        }
-
-        // ================
-        // Data Model
-        // ================
-
-        /// <summary>
-        /// Represents a booking record.
-        /// </summary>
-        public class BookingModel
+        public sealed class Booking
         {
             public int Id { get; set; }
             public string CustomerName { get; set; } = string.Empty;
-            public string Service { get; set; } = string.Empty;
             public DateTime Date { get; set; }
-            public string Status { get; set; } = string.Empty;
+            public string Time { get; set; } = string.Empty;
+            public BookingStatus Status { get; set; } = BookingStatus.Unknown;
         }
+
+        #endregion
     }
 }

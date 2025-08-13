@@ -21,4 +21,8 @@
     <Folder Include="wwwroot\icons\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\gh-pages.yml" />
+  </ItemGroup>
+
 </Project>
